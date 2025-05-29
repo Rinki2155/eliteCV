@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Hero from "./pages/components/Hero";
 import Header from "./pages/components/Header";
 import Dashboard from "./dashboard/page";
+import LandingPages from "./pages/components/LandingPages";
+import Test from "./pages/Test";
 
 export default function Home() {
   return (
@@ -15,8 +16,10 @@ export default function Home() {
               "radial-gradient(at 50% 100%, #c9ded3,rgb(72, 152, 111)",
           }}
         >
-          <Hero />
+          <LandingPages />
           <Dashboard />
+          
+          <Test />{" "}
         </div>
       </main>
     </>
