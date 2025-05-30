@@ -121,10 +121,10 @@ export default function Dashboard() {
       </div>
 
       {/* Right Content */}
-      <div className="w-1/2 overflow-y-auto bg-[#F3F4FF] p-8 rounded-xl">
+      <div className="w-1/2 overflow-y-auto bg-[#F3F4FF] p-8 rounded-xl mr-[1%]">
         <div className="bg-yellow-100 border border-yellow-300 p-4 rounded-xl mb-6">
           <p className="text-yellow-800 font-semibold">
-            OFFER: GET <span className="underline">75% OFF</span> RESUME WORDED
+            OFFER: GET <span className="underline">75% OFF</span> EliteCV
             PRO
           </p>
           <p className="text-yellow-900 text-sm mt-2">
@@ -132,7 +132,7 @@ export default function Dashboard() {
             optimization, industry-specific templates, and expert tools. Proven
             to get you more interviews.
           </p>
-          <button className="mt-3 bg-yellow-400 text-white px-4 py-2 rounded">
+          <button className="mt-3 bg-yellow-400 text-white px-4 py-2 rounded">3
             UPGRADE TO PRO
           </button>
           <p className="text-yellow-800 text-xs mt-1">
@@ -140,8 +140,8 @@ export default function Dashboard() {
             optimization suite (worth $49) for free.
           </p>
         </div>
-        <h2 className="text-xl font-semibold mb-2">Track your progress</h2>
-        <p className="text-sm mb-6">
+        <h2 className="text-xl font-semibold mb-2 text-[black]">Track your progress</h2>
+        <p className="text-sm mb-6 text-[black]">
           Our tools will guide you through the process of creating your{" "}
           <span className="font-semibold">most effective</span> resume and
           LinkedIn profile. To make the most out of them, follow the steps

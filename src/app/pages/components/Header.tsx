@@ -44,7 +44,7 @@ export default function Header() {
           </div> */}
         </div>
 
-        <Link href="/signup">
+        <Link href="/login">
           <div className="cursor-pointer hover:text-[green] text-black">Login</div>
         </Link>
       </nav>

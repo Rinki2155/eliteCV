@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Header from "../pages/components/Header";
 
 export default function AccountLogin() {
@@ -50,9 +50,15 @@ export default function AccountLogin() {
       {isMounted && <Header />}
 
       {isMounted && session?.user ? (
-        <p className="text-black bg-white p-4 text-center">
-          Logged in as {session.user.email}
-        </p>
+        <div className="text-black bg-[#c9e4ca] p-4 text-center w-[500px] mx-auto mt-10 rounded">
+          <h4> Logged in as {session.user.email}</h4>{" "}
+          <button
+      onClick={() => signOut({ callbackUrl: "/" })}
+      className="mt-4 bg-[#2e6e30] hover:bg-green-700 text-white px-4 py-2 rounded"
+    >
+      Logout
+    </button>
+        </div>
       ) : (
         <div className="flex flex-col md:flex-row justify-center py-16 px-4 md:px-0">
           <div className="bg-white text-black p-10 w-full max-w-md">

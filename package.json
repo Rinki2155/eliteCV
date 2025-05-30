@@ -15,6 +15,7 @@
     "@next-auth/firebase-adapter": "^1.0.3",
     "firebase": "^11.8.1",
     "firebase-admin": "^13.4.0",
+    "lottie-react": "^2.4.1",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",

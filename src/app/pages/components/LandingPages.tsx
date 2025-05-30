@@ -36,7 +36,7 @@ export default function LandingPages() {
         </div>
       </div>
 
-      <div className="w-full md:w-1/2 mt-10 md:mt-0 flex justify-center md:justify-end px-4 md:px-0 mr-[4%]">
+      <div className="w-full md:w-1/2 mt-10 md:mt-0 flex justify-center md:justify-end px-4 md:px-0 mr-[-4%]">
         <div className="relative w-full max-w-[560px] sm:max-w-[800px] md:w-[800px] md:h-[700px] h-[300px] sm:h-[700px] md:mr-[-12%]">
           <Image
             src="/images/8.jpg"

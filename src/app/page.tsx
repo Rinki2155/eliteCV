@@ -2,7 +2,8 @@ import Image from "next/image";
 import Header from "./pages/components/Header";
 import Dashboard from "./dashboard/page";
 import LandingPages from "./pages/components/LandingPages";
-import Test from "./pages/Test";
+import Loader from "./pages/Test";
+// import Test from "./pages/Test";
 
 export default function Home() {
   return (
@@ -18,8 +19,8 @@ export default function Home() {
         >
           <LandingPages />
           <Dashboard />
-          
-          <Test />{" "}
+          <Loader/>
+          {/* <Test />{" "} */}
         </div>
       </main>
     </>
