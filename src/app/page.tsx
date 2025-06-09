@@ -8,7 +8,7 @@ import Loader from "./pages/Test";
 export default function Home() {
   return (
     <>
-      <main className="bg-gradient-to-b from-[#1B005E] to-[#3A0079] min-h-screen text-white">
+      <div className="bg-gradient-to-b from-[#1B005E] to-[#3A0079] min-h-screen text-white">
         <Header />
         <div
           className=""
@@ -22,7 +22,7 @@ export default function Home() {
           <Loader/>
           {/* <Test />{" "} */}
         </div>
-      </main>
+      </div>
     </>
   );
 }

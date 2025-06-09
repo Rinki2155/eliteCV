@@ -90,6 +90,7 @@
 //   );
 // }
 
+
 "use client";
 
 import React, { useState } from "react";
@@ -103,9 +104,7 @@ export default function UploadResume() {
   const router = useRouter();
 
   const simulateResumeAnalysis = async (file: File): Promise<number> => {
-    // Simulate delay and scoring logic
-    await new Promise((resolve) => setTimeout(resolve, 4000)); // simulate upload + analysis
-    // For demo: random score between 50-100
+    await new Promise((resolve) => setTimeout(resolve, 4000));
     return Math.floor(Math.random() * 50) + 50;
   };
 
@@ -114,8 +113,7 @@ export default function UploadResume() {
     if (
       file &&
       (file.type === "application/pdf" ||
-        file.type ===
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+        file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     ) {
       setSelectedFile(file);
       setIsUploading(true);

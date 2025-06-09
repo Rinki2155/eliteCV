@@ -1,139 +1,233 @@
-// "use client";
+"use client";
 
-// import React, { useState } from "react";
-// import { CloudArrowUpIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
 
-// export default function Score() {
-//   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-//   const [isUploading, setIsUploading] = useState(false);
-//   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-//   const [score, setScore] = useState<number | null>(null);
+import { UploadCloud, Lock, AlertTriangle } from "lucide-react";
 
-//   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-//     const file = e.target.files?.[0];
+export default function Score() {
+  const { data: session, status } = useSession();
+  const [file, setFile] = useState<File | null>(null);
+  const [score, setScore] = useState<number | null>(null);
+  const [previewURL, setPreviewURL] = useState<string | null>(null);
 
-//     if (
-//       file &&
-//       (file.type === "application/pdf" ||
-//         file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-//     ) {
-//       setSelectedFile(file);
-//       setPreviewUrl(URL.createObjectURL(file));
-//       setIsUploading(true);
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const uploadedFile = e.target.files?.[0] || null;
+    setFile(uploadedFile);
 
-//       // Simulate upload and analysis delay
-//       setTimeout(() => {
-//         setIsUploading(false);
-//         const simulatedScore = Math.floor(Math.random() * 30) + 65; // Score range: 65–95
-//         setScore(simulatedScore);
-//       }, 8000);
-//     } else {
-//       alert("Please upload a valid PDF or DOCX file.");
-//     }
-//   };
+    if (uploadedFile) {
+      const url = URL.createObjectURL(uploadedFile);
+      setPreviewURL(url);
+      setScore(Math.floor(Math.random() * 41) + 60); // Random 60–100
+    }
+  };
 
-//   if (isUploading) return ;
+  const progressColor = (score: number | null) => {
+    if (score === null) return "stroke-gray-300";
+    if (score >= 85) return "stroke-green-500";
+    if (score >= 70) return "stroke-yellow-400";
+    return "stroke-red-500";
+  };
 
-//   return (
-//     <div className="min-h-screen flex flex-col md:flex-row items-start justify-center gap-6 p-6 bg-gradient-to-b from-green-300 to-green-700 text-white">
-//       {/* LEFT SIDE */}
-//       <div className="w-full md:w-1/3 bg-white/10 p-6 rounded-xl text-center">
-//         <h1 className="text-3xl font-bold mb-2 text-white">Upload Your Resume</h1>
-//         <p className="mb-4 text-sm">
-//           Career Level: <span className="font-semibold">Senior-level</span>{" "}
-//           <span className="underline cursor-pointer text-blue-300">(Change)</span>
-//         </p>
+  const circularProgress = (
+    <svg width="80" height="80">
+      <circle
+        cx="40"
+        cy="40"
+        r="35"
+        stroke="#E5E7EB"
+        strokeWidth="8"
+        fill="none"
+      />
+      <circle
+        cx="40"
+        cy="40"
+        r="35"
+        strokeLinecap="round"
+        strokeWidth="8"
+        fill="none"
+        className={progressColor(score)}
+        strokeDasharray={220}
+        strokeDashoffset={score !== null ? 220 - (220 * score) / 100 : 220}
+      />
+      <text
+        x="50%"
+        y="50%"
+        textAnchor="middle"
+        dy=".3em"
+        className="text-xl font-bold fill-gray-800"
+      >
+        {score ?? "--"}
+      </text>
+    </svg>
+  );
 
-//         <label
-//           htmlFor="resumeUpload"
-//           className="block border-2 border-dashed border-white/50 p-8 rounded-lg mb-4 cursor-pointer hover:bg-white/10 transition"
-//         >
-//           <CloudArrowUpIcon className="w-12 h-12 mx-auto text-white/70 mb-2" />
-//           <p className="text-white/80">Click to browse or drop your resume here</p>
-//           <p className="mt-1 text-sm text-white/90">
-//             PDF or DOCX only. Max 2MB.
-//           </p>
-//           <input
-//             type="file"
-//             id="resumeUpload"
-//             accept=".pdf,.docx"
-//             onChange={handleFileChange}
-//             className="hidden"
-//           />
-//         </label>
-
-//         {selectedFile && (
-//           <p className="text-green-200 text-sm mt-1">
-//             Selected: <span className="font-semibold">{selectedFile.name}</span>
-//           </p>
-//         )}
-
-//         {score !== null && (
-//           <div className="mt-6">
-//             <p className="text-lg">Score:</p>
-//             <p className="text-5xl font-bold text-yellow-300">{score}/100</p>
-//             <p className="mt-2 text-sm text-white/70">
-//               {score >= 80 ? "Great resume!" : "Needs improvement"}
-//             </p>
-//           </div>
-//         )}
-
-//         <div className="flex items-center text-xs text-white/60 mt-6">
-//           <LockClosedIcon className="w-4 h-4 mr-2" />
-//           <span>
-//             Your resume is processed securely and privately.
-//           </span>
-//         </div>
-//       </div>
-
-//       {/* RIGHT SIDE PREVIEW */}
-//       <div className="w-full md:w-2/3 bg-white p-4 rounded-lg shadow">
-//         <h2 className="text-xl font-bold mb-4 text-black">Resume Preview</h2>
-//         {previewUrl ? (
-//           <iframe src={previewUrl} className="w-full h-[75vh] border rounded-lg" />
-//         ) : (
-//           <p className="text-gray-500 text-sm">No resume uploaded yet.</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
-// import ScoreCircle from "@/components/ScoreCircle";
-// import ScoreBar from "@/components/ScoreBar";
-// import FixesList from "@/components/FixesList";
-// import SectionCard from "@/components/SectionCard";
-import ScoreCircle from "../pages/components/ScoreCircle";
-import ScoreBar from "../pages/components/ScoreBar";
-import FixesList from "../pages/components/FixesList";
-import SectionCard from "../pages/components/SectionCard";
-
-export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-[#F4F5FA] flex font-sans">
       {/* Sidebar */}
-      <aside className="w-64 bg-white p-4 border-r">
-        <ScoreCircle score={62} />
-        <FixesList />
-      </aside>
+      <div className="w-64 bg-white p-6 border-r flex flex-col justify-between">
+        <div>
+          <div className="flex justify-center mb-6">{circularProgress}</div>
+          <div className="text-center text-sm text-gray-600 mb-4">OVERALL</div>
 
-      {/* Main Content */}
-      <section className="flex-1 p-8">
-        <h1 className="text-2xl font-bold mb-4">Welcome to your resume review.</h1>
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-1">
+                TOP FIXES
+              </h3>
+              <ul className="text-sm space-y-1">
+                <li className="flex justify-between">
+                  <span>Buzzwords</span>
+                  <span className="text-red-500 text-xs font-bold">0</span>
+                </li>
+                <li className="flex justify-between text-gray-500">
+                  <span>Skills section</span>
+                  <Lock size={14} />
+                </li>
+                <li className="flex justify-between text-gray-500">
+                  <span>Summary</span>
+                  <Lock size={14} />
+                </li>
+                <li className="flex justify-between text-gray-500">
+                  <span>Filler words</span>
+                  <Lock size={14} />
+                </li>
+                <li className="flex justify-between text-gray-500">
+                  <span>Spelling & consistency</span>
+                  <Lock size={14} />
+                </li>
+              </ul>
+              <button className="mt-2 text-xs text-purple-600 font-semibold">
+                11 MORE ISSUES →
+              </button>
+            </div>
 
-        <SectionCard title="Your resume scored 62 out of 100.">
-          <p className="mb-4">
-            You're on the right track, but there's room for improvement on your resume! While your resume
-            does well in some areas, it falls short in others which are important to hiring managers and
-            resume screeners.
-          </p>
-          <p className="mb-2">
-            But don't worry — we'll show you how to make easy improvements to your resume, which will
-            increase your score by 20+ points.
-          </p>
-          <ScoreBar score={62} />
-        </SectionCard>
-      </section>
-    </main>
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-1">
+                COMPLETED
+              </h3>
+              <ul className="text-sm space-y-1">
+                <li className="flex justify-between">
+                  <span>Dates</span>
+                  <span className="text-green-500">10</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Unnecessary sections</span>
+                  <span className="text-green-500">10</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>Repetition</span>
+                  <span className="text-green-500">10</span>
+                </li>
+              </ul>
+              <button className="mt-2 text-xs text-purple-600 font-semibold">
+                3 MORE CHECKS →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button className="bg-blue-600 text-white py-2 rounded mt-6 text-sm font-semibold shadow">
+          Unlock full report
+        </button>
+      </div>
+
+      {/* Main content */}
+      <div className="p-8 space-y-6 w-[700px]">
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-bold text-[green] text-uppercase">
+            {status === "loading"
+              ? "Loading..."
+              : `Good evening, ${
+                  session?.user?.name || session?.user?.email || "user"
+                }`}
+          </h1>
+          <button className="border text-sm px-3 py-1 rounded font-medium text-gray-700">
+            HOW IT WORKS
+          </button>
+        </div>
+
+        <div className="bg-white p-6 rounded shadow space-y-5">
+          <div className="flex space-x-4 mb-4">
+            <button className="bg-[#EDEBFE] text-[#5145CD] px-3 py-1 text-sm rounded font-semibold">
+              LATEST SCORE
+            </button>
+            <button className="text-sm text-gray-500 px-3 py-1">
+              PREVIOUS SCORE
+            </button>
+          </div>
+
+          {score !== null ? (
+            <>
+              <h2 className="text-base font-bold">
+                Your resume scored {score} out of 100.
+              </h2>
+              <p className="text-sm text-gray-600">
+                You're on the right track, but there's room for improvement on
+                your resume! While your resume does well in some areas, it falls
+                short in others which are important to hiring managers and
+                resume screeners. But don't worry – we'll show you how to make
+                easy improvements to your resume, which will increase your score
+                by 20+ points.
+              </p>
+              <div className="w-full h-4 bg-gradient-to-r from-red-400 via-yellow-300 to-green-400 rounded mt-3 relative">
+                <div
+                  className="absolute top-0 h-4 bg-purple-600 rounded"
+                  style={{ width: `${score}%` }}
+                ></div>
+              </div>
+
+              <div className="flex items-start bg-yellow-50 border border-yellow-300 rounded p-3 mt-4 text-sm text-yellow-800">
+                <AlertTriangle size={16} className="mr-2 mt-0.5" />
+                Use the feedback to find and fix errors in your resume, then
+                reupload it to get a new score.
+                <strong className="ml-1">
+                  80% of people increase their score by over 20 points with just
+                  three uploads and revisions.
+                </strong>
+              </div>
+            </>
+          ) : (
+            <p className="text-sm text-gray-500">
+              Upload your resume to get a score.
+            </p>
+          )}
+        </div>
+
+        <div className="bg-white p-4 rounded shadow flex items-center gap-4 border">
+          <label
+            htmlFor="file-upload"
+            className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
+          >
+            {" "}
+            <UploadCloud className="w-6 h-6 text-gray-500" />
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            // accept="application/pdf"
+            accept=".pdf"
+            className="hidden"
+            onChange={handleUpload}
+          />
+        </div>
+      </div>
+
+      {/* Preview Panel */}
+      <div className="w-[600px] bg-white border-l p-4 overflow-auto">
+        <h2 className="text-sm font-semibold mb-2">Resume Preview</h2>
+        <div className="h-full text-xs text-gray-700">
+          {previewURL ? (
+            <iframe
+              src={previewURL}
+              className="w-full h-[90vh] border"
+              title="Resume Preview"
+            />
+          ) : (
+            <p className="text-sm text-gray-400 italic">No resume uploaded.</p>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
