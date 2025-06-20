@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Header from "./pages/components/Header";
-import Dashboard from "./dashboard/page";
 import LandingPages from "./pages/components/LandingPages";
 import Loader from "./pages/Test";
+import HomePage from "./HomePage/page";
 // import Test from "./pages/Test";
 
 export default function Home() {
@@ -14,12 +14,12 @@ export default function Home() {
           className=""
           style={{
             backgroundImage:
-              "radial-gradient(at 50% 100%, #c9ded3,rgb(72, 152, 111)",
+              "radial-gradient(at 50% 100%,rgb(156, 103, 213),rgb(220, 151, 165)",
           }}
         >
           <LandingPages />
-          <Dashboard />
-          <Loader/>
+           {/* <HomePage/> */}
+          {/*<Loader/> */}
           {/* <Test />{" "} */}
         </div>
       </div>

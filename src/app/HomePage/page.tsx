@@ -6,18 +6,24 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession, getSession } from "next-auth/react";
 import { useEffect } from "react";
 
-export default function Dashboard() {
+
+export default function HomePage() {
   const { data: session, status } = useSession();
   const pathname = usePathname();
   const router = useRouter();
 
+
+    // Redirect to login if not authenticated 
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.push("/");
+      router.push("/login"); // Redirect to login if not logged in
     }
-  }, [status]);
+  }, [status, router]);
 
-  if (status === "loading") return <div>Loading...</div>;
+ if (status === "loading") {
+    return <div className="text-center py-10 text-xl">Loading...</div>;
+  }
+
 
   const menuItems = [
     { name: "Progress", href: "/progress" },

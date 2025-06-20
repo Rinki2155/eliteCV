@@ -52,12 +52,7 @@ export default function AccountLogin() {
       {isMounted && session?.user ? (
         <div className="text-black bg-[#c9e4ca] p-4 text-center w-[500px] mx-auto mt-10 rounded">
           <h4> Logged in as {session.user.email}</h4>{" "}
-          <button
-      onClick={() => signOut({ callbackUrl: "/" })}
-      className="mt-4 bg-[#2e6e30] hover:bg-green-700 text-white px-4 py-2 rounded"
-    >
-      Logout
-    </button>
+
         </div>
       ) : (
         <div className="flex flex-col md:flex-row justify-center py-16 px-4 md:px-0">
@@ -159,7 +154,6 @@ export default function AccountLogin() {
               <a href="#" className="underline">
                 Privacy Policy
               </a>
-              .
             </p>
           </div>
         </div>

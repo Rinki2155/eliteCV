@@ -1,26 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-
 import { UploadCloud, Lock, AlertTriangle } from "lucide-react";
 
 export default function Score() {
   const { data: session, status } = useSession();
-  const [file, setFile] = useState<File | null>(null);
+  const searchParams = useSearchParams();
+
   const [score, setScore] = useState<number | null>(null);
+  const [feedback, setFeedback] = useState<string | null>(null);
+  const [strengths, setStrengths] = useState<string[]>([]);
+  const [weaknesses, setWeaknesses] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [previewURL, setPreviewURL] = useState<string | null>(null);
 
-  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const uploadedFile = e.target.files?.[0] || null;
-    setFile(uploadedFile);
+  useEffect(() => {
+    const scoreParam = searchParams.get("score");
+    const feedbackParam = searchParams.get("feedback");
+    const strengthsParam = searchParams.get("strengths");
+    const weaknessesParam = searchParams.get("weaknesses");
+    const suggestionsParam = searchParams.get("suggestions");
 
-    if (uploadedFile) {
-      const url = URL.createObjectURL(uploadedFile);
-      setPreviewURL(url);
-      setScore(Math.floor(Math.random() * 41) + 60); // Random 60–100
-    }
-  };
+    if (scoreParam) setScore(Number(scoreParam));
+    if (feedbackParam) setFeedback(decodeURIComponent(feedbackParam));
+    if (strengthsParam)
+      setStrengths(JSON.parse(decodeURIComponent(strengthsParam)));
+    if (weaknessesParam)
+      setWeaknesses(JSON.parse(decodeURIComponent(weaknessesParam)));
+    if (suggestionsParam)
+      setSuggestions(JSON.parse(decodeURIComponent(suggestionsParam)));
+
+    const preview = sessionStorage.getItem("resumePreviewURL");
+    if (preview) setPreviewURL(preview);
+  }, [searchParams]);
 
   const progressColor = (score: number | null) => {
     if (score === null) return "stroke-gray-300";
@@ -68,165 +82,92 @@ export default function Score() {
       <div className="w-64 bg-white p-6 border-r flex flex-col justify-between">
         <div>
           <div className="flex justify-center mb-6">{circularProgress}</div>
-          <div className="text-center text-sm text-gray-600 mb-4">OVERALL</div>
+          <div className="text-center text-sm text-[green] mb-4">
+            OVERALL SCORE
+          </div>
 
           <div className="space-y-4">
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-1">
-                TOP FIXES
-              </h3>
+              <h3 className="text-sm text-[green] mb-1">STRENGTHS</h3>
               <ul className="text-sm space-y-1">
-                <li className="flex justify-between">
-                  <span>Buzzwords</span>
-                  <span className="text-red-500 text-xs font-bold">0</span>
-                </li>
-                <li className="flex justify-between text-gray-500">
-                  <span>Skills section</span>
-                  <Lock size={14} />
-                </li>
-                <li className="flex justify-between text-gray-500">
-                  <span>Summary</span>
-                  <Lock size={14} />
-                </li>
-                <li className="flex justify-between text-gray-500">
-                  <span>Filler words</span>
-                  <Lock size={14} />
-                </li>
-                <li className="flex justify-between text-gray-500">
-                  <span>Spelling & consistency</span>
-                  <Lock size={14} />
-                </li>
+                {strengths.map((item, i) => (
+                  <li key={i} className="flex justify-between">
+                    <span>{item}</span>
+                    <span className="text-[green] font-bold">✓</span>
+                  </li>
+                ))}
               </ul>
-              <button className="mt-2 text-xs text-purple-600 font-semibold">
-                11 MORE ISSUES →
-              </button>
             </div>
-
             <div>
-              <h3 className="text-sm font-semibold text-gray-700 mb-1">
-                COMPLETED
-              </h3>
+              <h3 className="text-sm font-semibold text-[green] mb-1">WEAKNESSES</h3>
               <ul className="text-sm space-y-1">
-                <li className="flex justify-between">
-                  <span>Dates</span>
-                  <span className="text-green-500">10</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Unnecessary sections</span>
-                  <span className="text-green-500">10</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Repetition</span>
-                  <span className="text-green-500">10</span>
-                </li>
+                {weaknesses.map((item, i) => (
+                  <li key={i} className="flex justify-between">
+                    <span>{item}</span>
+                    <span className="text-red-500 text-[green] font-bold">⚠</span>
+                  </li>
+                ))}
               </ul>
-              <button className="mt-2 text-xs text-purple-600 font-semibold">
-                3 MORE CHECKS →
-              </button>
             </div>
           </div>
         </div>
-
         <button className="bg-blue-600 text-white py-2 rounded mt-6 text-sm font-semibold shadow">
           Unlock full report
         </button>
       </div>
 
-      {/* Main content */}
-      <div className="p-8 space-y-6 w-[700px]">
-        <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold text-[green] text-uppercase">
-            {status === "loading"
-              ? "Loading..."
-              : `Good evening, ${
-                  session?.user?.name || session?.user?.email || "user"
-                }`}
-          </h1>
-          <button className="border text-sm px-3 py-1 rounded font-medium text-gray-700">
-            HOW IT WORKS
-          </button>
-        </div>
+      {/* Main */}
+      <div className="flex-1 p-8 space-y-6">
+        <h1 className="text-xl font-bold text-green-700">
+          {status === "loading"
+            ? "Loading..."
+            : `Hi, ${session?.user?.name || session?.user?.email || "User"}`}
+        </h1>
 
-        <div className="bg-white p-6 rounded shadow space-y-5">
-          <div className="flex space-x-4 mb-4">
-            <button className="bg-[#EDEBFE] text-[#5145CD] px-3 py-1 text-sm rounded font-semibold">
-              LATEST SCORE
-            </button>
-            <button className="text-sm text-gray-500 px-3 py-1">
-              PREVIOUS SCORE
-            </button>
-          </div>
-
-          {score !== null ? (
-            <>
-              <h2 className="text-base font-bold">
-                Your resume scored {score} out of 100.
-              </h2>
-              <p className="text-sm text-gray-600">
-                You're on the right track, but there's room for improvement on
-                your resume! While your resume does well in some areas, it falls
-                short in others which are important to hiring managers and
-                resume screeners. But don't worry – we'll show you how to make
-                easy improvements to your resume, which will increase your score
-                by 20+ points.
-              </p>
-              <div className="w-full h-4 bg-gradient-to-r from-red-400 via-yellow-300 to-green-400 rounded mt-3 relative">
-                <div
-                  className="absolute top-0 h-4 bg-purple-600 rounded"
-                  style={{ width: `${score}%` }}
-                ></div>
-              </div>
-
-              <div className="flex items-start bg-yellow-50 border border-yellow-300 rounded p-3 mt-4 text-sm text-yellow-800">
-                <AlertTriangle size={16} className="mr-2 mt-0.5" />
-                Use the feedback to find and fix errors in your resume, then
-                reupload it to get a new score.
-                <strong className="ml-1">
-                  80% of people increase their score by over 20 points with just
-                  three uploads and revisions.
-                </strong>
-              </div>
-            </>
-          ) : (
-            <p className="text-sm text-gray-500">
-              Upload your resume to get a score.
+        <div className="bg-white p-6 rounded shadow space-y-4">
+          <h2 className="text-lg font-bold">
+            Your resume scored {score} out of 100.
+          </h2>
+          {feedback && (
+            <p className="text-sm text-gray-700 italic border-l-4 border-yellow-400 pl-4">
+              {feedback}
             </p>
           )}
-        </div>
-
-        <div className="bg-white p-4 rounded shadow flex items-center gap-4 border">
-          <label
-            htmlFor="file-upload"
-            className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer"
-          >
-            {" "}
-            <UploadCloud className="w-6 h-6 text-gray-500" />
-          </label>
-          <input
-            id="file-upload"
-            type="file"
-            // accept="application/pdf"
-            accept=".pdf"
-            className="hidden"
-            onChange={handleUpload}
-          />
+          <div className="w-full h-4 bg-gradient-to-r from-red-400 via-yellow-300 to-green-400 rounded mt-3 relative">
+            <div
+              className="absolute top-0 h-4 bg-purple-600 rounded"
+              style={{ width: `${score}%` }}
+            ></div>
+          </div>
+          <div className="mt-4">
+            <h3 className="text-sm font-semibold">Suggestions</h3>
+            <ul className="text-sm mt-2 space-y-1">
+              {suggestions.map((item, i) => (
+                <li key={i} className="list-disc list-inside text-gray-700">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="flex items-start bg-yellow-50 border border-yellow-300 rounded p-3 mt-4 text-sm text-yellow-800">
+            <AlertTriangle size={16} className="mr-2 mt-0.5" />
+            Use this feedback to revise your resume and try again.
+          </div>
         </div>
       </div>
 
-      {/* Preview Panel */}
+      {/* Preview */}
       <div className="w-[600px] bg-white border-l p-4 overflow-auto">
         <h2 className="text-sm font-semibold mb-2">Resume Preview</h2>
-        <div className="h-full text-xs text-gray-700">
-          {previewURL ? (
-            <iframe
-              src={previewURL}
-              className="w-full h-[90vh] border"
-              title="Resume Preview"
-            />
-          ) : (
-            <p className="text-sm text-gray-400 italic">No resume uploaded.</p>
-          )}
-        </div>
+        {previewURL ? (
+          <iframe
+            src={previewURL}
+            className="w-full h-[90vh] border"
+            title="Resume Preview"
+          />
+        ) : (
+          <p className="text-sm text-gray-400 italic">No resume uploaded.</p>
+        )}
       </div>
     </div>
   );

@@ -1,13 +1,20 @@
 "use client";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 export default function LandingPages() {
+  
+    const [email, setEmail] = useState("");
+    const [emailSent, setEmailSent] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
   return (
     <section className="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-12 md:py-16 max-w-[1290px] mx-auto">
       <div className="w-full md:w-1/2 text-center md:text-left">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight font-sans">
-          Improve your resume and{" "}
-          <br className="hidden md:block" /> LinkedIn profile
+          Improve your resume and <br className="hidden md:block" /> LinkedIn
+          profile
         </h1>
 
         <p className="text-base sm:text-lg mb-6 text-[#333333] leading-relaxed px-2 md:px-0">
@@ -28,10 +35,11 @@ export default function LandingPages() {
           </button>
 
           <button
-            className="text-white font-semibold py-3 px-4 rounded w-full sm:w-[150px]"
+           onClick={() => signIn("google", { callbackUrl: "/HomePage" })}
+            className="text-white font-semibold py-3 px-4 rounded w-full sm:w-[180px]"
             style={{ backgroundColor: "#3e8e41" }}
           >
-            See preview
+            Upload Resume{" "}
           </button>
         </div>
       </div>
