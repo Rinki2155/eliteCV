@@ -19,7 +19,7 @@ export default function LoaderPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#5aa35d] flex items-center justify-center text-gray-300 font-sans">
+    <div className="min-h-screen flex items-center justify-center text-gray-300 font-sans">
       <ul className="w-[300px] space-y-4">
         {steps.map((step, index) => {
           const isActive = index === currentStep;
@@ -29,15 +29,17 @@ export default function LoaderPage() {
             <li
               key={index}
               className={`flex items-center text-base transition-opacity ${
-                isActive ? "text-white opacity-100" : isDone ? "text-white opacity-60" : "opacity-30"
+                isActive
+                  ? "text-white opacity-100"
+                  : isDone
+                  ? "text-white opacity-60"
+                  : "opacity-30"
               }`}
             >
               <div
                 className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mr-3 relative transition-all duration-500 ${
                   isActive || isDone ? "border-green-400" : "border-gray-400"
-                } ${
-                  isActive ? "bg-white" : ""
-                }`}
+                } ${isActive ? "bg-white" : ""}`}
               >
                 {(isActive || isDone) && (
                   <span className="text-green-400 text-xs font-bold">✔</span>
