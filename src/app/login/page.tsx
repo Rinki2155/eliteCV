@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
 import Header from "../pages/components/Header";
 import { useRouter } from "next/navigation";
+import Footer from "../pages/components/Footer";
 
 export default function AccountLogin() {
   const { data: session, status } = useSession();
@@ -147,6 +148,7 @@ export default function AccountLogin() {
           </div>
         </div>
       )}
+      <Footer/>
     </div>
   );
 }

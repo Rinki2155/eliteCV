@@ -211,6 +211,7 @@ import Lottie from "lottie-react";
 import uploadingAnimation from "@/app/animations/loader.json";
 import { verifyEmailWithServer } from "@/app/utils/auth";
 import { API_ROUTES } from "../lib/config";
+import Footer from "../pages/components/Footer";
 
 export default function UploadResume() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -236,16 +237,13 @@ export default function UploadResume() {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch(
-      API_ROUTES.RESUME_UPLOAD,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      }
-    );
+    const response = await fetch(API_ROUTES.RESUME_UPLOAD, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
 
     const result = await response.json();
 
@@ -321,10 +319,7 @@ export default function UploadResume() {
   // 🔄 Lottie loader
   if (isUploading) {
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center bg-[#c2b0de]"
-      
-      >
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#c2b0de]">
         <div className="w-64 h-64">
           <Lottie animationData={uploadingAnimation} loop={true} />
         </div>
@@ -338,11 +333,10 @@ export default function UploadResume() {
   return (
     <>
       <Header />
-      <div
-        className="min-h-screen flex flex-col items-center justify-center px-4 text-white text-center "
-
-      >
-        <h1 className="text-3xl font-bold text-[purple] mb-2">Upload Your Resume</h1>
+      <div className="min-h-screen flex flex-col items-center justify-center px-4 text-white text-center ">
+        <h1 className="text-3xl font-bold text-[purple] mb-2">
+          Upload Your Resume
+        </h1>
         <p className="mb-6 text-[purple]">
           Career Level: <span className="font-semibold">Senior-level</span>{" "}
           <span className="underline cursor-pointer text-blue-300">
@@ -393,6 +387,7 @@ export default function UploadResume() {
           </span>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
