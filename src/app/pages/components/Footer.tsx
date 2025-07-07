@@ -103,7 +103,7 @@ export default function Footer() {
       </footer>
 
       <footer className="bg-[purple] text-white py-8  md:px-12">
-        <div className="max-w-7xl mx-auto text-2xl text-center">© 2025 Resume Worded. All rights reserved.</div>
+        <div className="max-w-7xl mx-auto text-2xl text-center">© 2025 EliteCv. All rights reserved.</div>
       </footer>
     </>
   );

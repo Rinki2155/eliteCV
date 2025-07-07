@@ -26,9 +26,9 @@ export default function HomePage() {
     { name: "Progress", href: "/progress" },
     { name: "Get Pro", href: "/get-pro" },
     { name: "Resumes", href: "/resumes" },
-    { name: "Career Tools", href: "/career-tools" },
-    { name: "LinkedIn", href: "/linkedin" },
-    { name: "Help Center", href: "/help" },
+    // { name: "Career Tools", href: "/career-tools" },
+    // { name: "LinkedIn", href: "/linkedin" },
+    // { name: "Help Center", href: "/help" },
     { name: "Feedback", href: "/feedback" },
     { name: "My Account", href: "/account" },
   ];
@@ -39,9 +39,37 @@ export default function HomePage() {
       description: "Get expert feedback on your resume, instantly",
       image: "/images/resume.png",
       href: "/uploadResume",
-      bg: "bg-[#cab3ee] hover:bg-[#b39cd6]",
+      bg: "bg-[#cab3ee] hover:bg-[#AD45FF]",
       color: "text-[#2D2D2D]",
     },
+    {
+      name: "Targeted Resume",
+      description: "Tailor your resume to a job description",
+      image: "/images/target.jpeg",
+      href: "/target-resume",
+      bg: "bg-[#cab3ee] hover:bg-[#AD45FF]",
+    },
+  ];
+
+  const progressSections = [
+    {
+      title: "OVERALL RESUME SCORE",
+      score: "27/100",
+      scoreText: "Your resume scored 27 out of 100. Aim for a score of 85+.",
+      buttonText: "UPLOAD RESUME",
+      href: "/uploadResume",
+      color: "bg-purple-600 text-white",
+    },
+    {
+      title: "TARGETED RESUME SCORE",
+      scoreText:
+        "You have not tried this tool yet. Match it to a job posting to fix.",
+      buttonText: "🎯 TARGET YOUR RESUME",
+      href: "/target-resume",
+      color: "bg-gray-200 text-gray-800",
+      bg: "bg-[#cab3ee] hover:bg-[#AD45FF]",
+    },
+
   ];
 
   return (
@@ -118,10 +146,10 @@ export default function HomePage() {
         </div>
 
         {/* Right Content */}
-        <div className="w-full overflow-y-auto bg-[#c2b0de] p-4 md:p-8">
+        {/* <div className="w-full overflow-y-auto bg-[#c2b0de] p-6 md:p-8 shadow-md">
           <div className="bg-yellow-100 border border-yellow-300 p-4 rounded-xl mb-6">
             <p className="text-yellow-800 font-semibold">
-              OFFER: GET <span className="underline">75% OFF</span> EliteCV PRO
+              OFFER: GET <span className="underline text-bold">75% OFF</span> EliteCV PRO
             </p>
             <p className="text-yellow-900 text-sm mt-2">
               Unlock AI-powered resume writing, unlimited reviews, ATS
@@ -196,6 +224,74 @@ export default function HomePage() {
             <button className="bg-blue-600 text-white px-4 py-2 rounded-full">
               Help
             </button>
+          </div>
+        </div> */}
+
+        <div className="min-h-screen  bg-gradient-to-br from-purple-200 to-indigo-200 p-8 rounded-lg">
+          <div className="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="w-full h-[90vh] overflow-y-auto  bg-gradient-to-br from-purple-200 p-6 md:p-10">
+              <div className="bg-yellow-100 border-l-4 border-yellow-400 p-6 rounded-xl shadow-md mb-8">
+                <p className="text-yellow-800 font-bold text-lg">
+                  OFFER: GET{" "}
+                  <span className="underline font-extrabold">75% OFF</span>{" "}
+                  EliteCV PRO
+                </p>
+                <p className="text-yellow-900 text-sm mt-2">
+                  Unlock AI-powered resume writing, unlimited reviews, ATS
+                  optimization, industry-specific templates, and expert tools.
+                </p>
+                <button className="mt-4 bg-yellow-400 hover:bg-yellow-500 transition text-white px-6 py-2 font-semibold rounded-lg shadow-md">
+                  🚀 UPGRADE TO PRO
+                </button>
+                <p className="text-yellow-800 text-xs mt-2 italic">
+                  * Limited Time Bonus: You'll also get access to our LinkedIn
+                  suite.
+                </p>
+              </div>
+
+              <h2 className="text-2xl font-bold mb-3 text-black">
+                Track your progress
+              </h2>
+              <p className="text-base mb-8 text-gray-800">
+                Our tools will guide you through your{" "}
+                <span className="font-semibold">most effective</span> resume and
+                LinkedIn journey. Follow the steps below.
+              </p>
+
+              {progressSections.map((section, i) => (
+                <div
+                  className="bg-white p-6 rounded-2xl shadow-lg mb-6 border border-gray-200 transition hover:shadow-xl"
+                  key={i}
+                >
+                  <p className="text-md font-semibold text-purple-800 uppercase tracking-wide">
+                    {section.title}
+                  </p>
+                  <p className="text-sm mt-2 text-gray-700">
+                    {section.scoreText}
+                  </p>
+                  {section.score && (
+                    <div className="flex justify-between items-center mt-4">
+                      <span className="bg-pink-100 text-pink-800 px-4 py-1 rounded-full font-bold text-sm">
+                        {section.score}
+                      </span>
+                    </div>
+                  )}
+                  <Link href={section.href}>
+                    <button
+                      className={`mt-4 px-5 py-2 text-sm font-semibold rounded-lg shadow-md transition hover:opacity-90 ${section.color} ${section.bg}`}
+                    >
+                      {section.buttonText}
+                    </button>
+                  </Link>
+                </div>
+              ))}
+
+              <div className="fixed bottom-6 right-6">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-full shadow-lg transition">
+                  💬 Help
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
