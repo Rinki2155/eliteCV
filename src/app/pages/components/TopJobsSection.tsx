@@ -1,4 +1,4 @@
-// components/TopJobsSection.tsx
+import Image from 'next/image';
 
 interface Props {
   title: string;
@@ -24,7 +24,7 @@ export default function TopJobsSection({
           <p className="text-sm leading-relaxed">{paragraph2}</p>
         </div>
         <div className="w-full lg:w-1/2">
-          <img src={imageUrl} alt="Top Jobs" className="w-full" />
+          <Image  src={imageUrl} alt="Top Jobs" width={100} height={100} className="w-full" />
         </div>
       </div>
     </section>

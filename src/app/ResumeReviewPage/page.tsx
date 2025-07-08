@@ -1,7 +1,5 @@
 "use client";
-
 import { useState } from "react";
-import Image from "next/image";
 
 const TABS = [
   { id: "review", label: "INSTANT RESUME REVIEW" },

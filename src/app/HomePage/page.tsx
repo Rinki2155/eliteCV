@@ -138,9 +138,7 @@ export default function HomePage() {
                   <div className="bg-yellow-100 border-l-4 border-yellow-400 p-6 rounded-xl shadow-md mb-8">
                     <p className="text-yellow-800 font-bold text-lg">
                       OFFER: GET{" "}
-                      <span className="underline font-extrabold">
-                        75% OFF
-                      </span>{" "}
+                      <span className="underline font-extrabold">75% OFF</span>{" "}
                       EliteCV PRO
                     </p>
                     <p className="text-yellow-900 text-sm mt-2">
@@ -162,8 +160,8 @@ export default function HomePage() {
                   </h2>
                   <p className="text-base mb-8 text-gray-800">
                     Our tools will guide you through your{" "}
-                    <span className="font-semibold">most effective</span>{" "}
-                    resume and LinkedIn journey. Follow the steps below.
+                    <span className="font-semibold">most effective</span> resume
+                    and LinkedIn journey. Follow the steps below.
                   </p>
 
                   {progressSections.map((section, i) => (

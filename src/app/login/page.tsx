@@ -5,6 +5,7 @@ import { signIn, useSession } from "next-auth/react";
 import Header from "../pages/components/Header";
 import { useRouter } from "next/navigation";
 import Footer from "../pages/components/Footer";
+import Image from "next/image";
 
 export default function AccountLogin() {
   const { data: session, status } = useSession();
@@ -65,7 +66,8 @@ export default function AccountLogin() {
                   Access your resume and LinkedIn reviews
                 </span>
                 <p className="text-[#666666] ml-6 mt-1">
-                  Revisit the feedback from your previous resume or LinkedIn reviews.
+                  Revisit the feedback from your previous resume or LinkedIn
+                  reviews.
                 </p>
               </li>
               <li>
@@ -74,7 +76,8 @@ export default function AccountLogin() {
                   Get a new resume or LinkedIn review
                 </span>
                 <p className="text-[#666666] ml-6 mt-1">
-                  Upload your resume or LinkedIn profile again for another review!
+                  Upload your resume or LinkedIn profile again for another
+                  review!
                 </p>
               </li>
               <li>
@@ -83,7 +86,8 @@ export default function AccountLogin() {
                   Access the resume bullet point builder
                 </span>
                 <p className="text-[#666666] ml-6 mt-1">
-                  Add and manage your bullet points, or get inspired by resume bullet points.
+                  Add and manage your bullet points, or get inspired by resume
+                  bullet points.
                 </p>
               </li>
             </ul>
@@ -99,15 +103,18 @@ export default function AccountLogin() {
               onClick={() => signIn("google")}
               className="bg-white text-black w-full py-2 px-4 rounded mb-4 flex justify-center items-center font-semibold hover:bg-[#eee]"
             >
-              <img
+              <Image
                 src="https://developers.google.com/identity/images/g-logo.png"
                 alt="Google"
                 className="w-5 h-5 mr-2"
+                width={100} height={100}
               />
               Sign in with Google
             </button>
 
-            <div className="text-center text-sm text-[#FAFAFF] mb-4">- or -</div>
+            <div className="text-center text-sm text-[#FAFAFF] mb-4">
+              - or -
+            </div>
 
             {emailSent ? (
               <p className="text-green-100 text-sm text-center">
@@ -148,7 +155,7 @@ export default function AccountLogin() {
           </div>
         </div>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

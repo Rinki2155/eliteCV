@@ -7,14 +7,6 @@ export default function UploadButton() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // const handleClick = () => {
-  //   if (status === "authenticated") {
-  //     router.push("/resumeUpload");
-  //   } else {
-  //     router.push("/login?callbackUrl=/resumeUpload");
-  //   }
-  // };
-
   const handleUpload = () => {
     // After resume upload:
     router.push("/HomePage?from=uploadResume");

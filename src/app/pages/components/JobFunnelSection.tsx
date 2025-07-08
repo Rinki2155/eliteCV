@@ -1,5 +1,7 @@
 // components/JobFunnelSection.tsx
 import Link from 'next/link';
+import Image from 'next/image';
+
 
 interface Props {
   title: string;
@@ -22,7 +24,7 @@ export default function JobFunnelSection({
     <section className="bg-[#c2b0de] text-white py-16 px-4">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-8">
         <div className="w-full lg:w-1/2">
-          <img src={imageUrl} alt="Job Funnel" className="w-full" />
+          <Image  src={imageUrl} alt="Job Funnel" width={100} height={100} className="w-full" />
         </div>
         <div className="w-full lg:w-1/2 px-4">
           <h2 className="text-3xl font-bold mb-4 text-[purple]">{title}</h2>
