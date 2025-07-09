@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <>
@@ -21,10 +25,10 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2 text-white">
                 <li>
-                  <a href="/" className=" text-white">Score my resume</a>
+                  <Link href="/" className="text-white">Score my resume</Link>
                 </li>
                 <li>
-                  <a href="#" className=" text-white">Targeted resume</a>
+                  <Link href="#" className="text-white">Targeted resume</Link>
                 </li>
               </ul>
             </div>
@@ -36,65 +40,65 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2 text-white text-1xl">
                 <li>
-                  <a href="#">ATS resume templates</a>
+                  <Link href="#">ATS resume templates</Link>
                 </li>
                 <li>
-                  <a href="#">ATS resume test</a>
+                  <Link href="#">ATS resume test</Link>
                 </li>
                 <li>
-                  <a href="#">ATS resume guide</a>
+                  <Link href="#">ATS resume guide</Link>
                 </li>
                 <li>
-                  <a href="#">Resume helper</a>
+                  <Link href="#">Resume helper</Link>
                 </li>
                 <li>
-                  <a href="#">Resume proofreader</a>
+                  <Link href="#">Resume proofreader</Link>
                 </li>
                 <li>
-                  <a href="#">Rate my resume</a>
+                  <Link href="#">Rate my resume</Link>
                 </li>
                 <li>
-                  <a href="#">Resume grammar checker</a>
+                  <Link href="#">Resume grammar checker</Link>
                 </li>
                 <li>
-                  <a href="#">Resume optimizer</a>
+                  <Link href="#">Resume optimizer</Link>
                 </li>
                 <li>
-                  <a href="#">Google Docs resume</a>
+                  <Link href="#">Google Docs resume</Link>
                 </li>
               </ul>
             </div>
 
-            {/* Column 4 */}
+            {/* Column 3 */}
             <div>
               <h3 className="font-semibold text-white mb-4">Get to know us</h3>
               <ul className="space-y-2 text-white text-1xl">
                 <li>
-                  <a href="#">Help center</a>
+                  <Link href="#">Help center</Link>
                 </li>
                 <li>
-                  <a href="#">Get in touch</a>
+                  <Link href="#">Get in touch</Link>
                 </li>
                 <li>
-                  <a href="#">For businesses</a>
+                  <Link href="#">For businesses</Link>
                 </li>
                 <li>
-                  <a href="#">For resume writers</a>
+                  <Link href="#">For resume writers</Link>
                 </li>
                 <li>
-                  <a href="#">Affiliates</a>
+                  <Link href="#">Affiliates</Link>
                 </li>
                 <li>
-                  <a href="#">Coached, our newsletter</a>
+                  <Link href="#">Coached, our newsletter</Link>
                 </li>
                 <li>
-                  <a href="#">Testimonials</a>
+                  <Link href="#">Testimonials</Link>
                 </li>
                 <li>
-                  <a href="#">Privacy</a>
+                  <Link href="#">Privacy</Link>
                 </li>
                 <li>
-                  <a href="#">Terms</a>
+                  <Link href="#">Terms</Link>
                 </li>
               </ul>
             </div>
@@ -102,8 +106,10 @@ export default function Footer() {
         </div>
       </footer>
 
-      <footer className="bg-[purple] text-white py-8  md:px-12">
-        <div className="max-w-7xl mx-auto text-2xl text-center">© 2025 EliteCv. All rights reserved.</div>
+      <footer className="bg-[purple] text-white py-8 md:px-12">
+        <div className="max-w-7xl mx-auto text-2xl text-center">
+          © 2025 EliteCv. All rights reserved.
+        </div>
       </footer>
     </>
   );

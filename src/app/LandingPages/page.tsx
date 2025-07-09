@@ -1,9 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import JobFunnelSection from "../pages/components/JobFunnelSection";
 import TopJobsSection from "../pages/components/TopJobsSection";
 import ResumeReviewPage from "../ResumeReviewPage/page";
@@ -11,27 +10,17 @@ import Header from "../pages/components/Header";
 import Footer from "../pages/components/Footer";
 
 export default function LandingPages() {
-  const { data: session, status } = useSession();
+  useSession(); // Keeping this if you still need session status tracking in future
   const router = useRouter();
-
-  const isLoggedIn = status === "authenticated";
-
-  const handleUploadResume = () => {
-    if (isLoggedIn) {
-      router.push("/uploadResume");
-    } else {
-      signIn("google", { callbackUrl: "/uploadResume" }); // or router.push("/login") if custom login
-    }
-  };
 
   const landingSections = [
     {
       type: "jobFunnel",
       title: "Write and improve your resume",
       paragraph1:
-        "Struggling to write your resume? Don't worry. We have over 250+ sample bullet points from top resumes across all industries and skills. Use our templates and sample lines to quickly write an effective resume from scratch.",
+        "Struggling to write your resume? Don&apos;t worry. We have over 250+ sample bullet points from top resumes across all industries and skills. Use our templates and sample lines to quickly write an effective resume from scratch.",
       paragraph2:
-        "With Score My Resume, you can improve one upload at a time. Unlike any other tool, you get specific feedback on your resume's content, including on each bullet point.",
+        "With Score My Resume, you can improve one upload at a time. Unlike any other tool, you get specific feedback on your resume&apos;s content, including on each bullet point.",
       buttonText: "Upload resumes >>",
       imageUrl: "/images/Screenshot1.png",
       link: "/login",
@@ -49,9 +38,9 @@ export default function LandingPages() {
       type: "jobFunnel",
       title: "Optimize your job search funnel",
       paragraph1:
-        "Let's say you apply to or get contacted by a recruiter for 50 job openings. Out of those, your resume might get you 5 interviews, and out of those, you may end up getting one job offer.",
+        "Let&apos;s say you apply to or get contacted by a recruiter for 50 job openings. Out of those, your resume might get you 5 interviews, and out of those, you may end up getting one job offer.",
       paragraph2:
-        "Resume Worded optimizes this job search funnel. With LinkedIn Review, you'll get contacted by more recruiters for more jobs on LinkedIn, thus widening the top part of the funnel. With our resume tools, you'll then be able to ensure you are maximizing the conversion of those jobs to interviews.",
+        "Resume Worded optimizes this job search funnel. With LinkedIn Review, you&apos;ll get contacted by more recruiters for more jobs on LinkedIn, thus widening the top part of the funnel. With our resume tools, you&apos;ll then be able to ensure you are maximizing the conversion of those jobs to interviews.",
       buttonText: "Upload resumes >>",
       imageUrl: "/images/Screenshot3.png",
       link: "/login",
@@ -60,13 +49,12 @@ export default function LandingPages() {
 
   return (
     <>
-      <Header/>
+      <Header />
       <div>
         <section className="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-12 md:py-16 max-w-[1290px] mx-auto">
           <div className="w-full md:w-1/2 text-center md:text-left">
             <h1 className="text-3xl sm:text-4xl md:text-5xl text-[purple] font-bold mb-6 leading-snug md:leading-tight font-sans">
-              Improve your resume and <br className="hidden md:block" />{" "}
-              LinkedIn profile
+              Improve your resume and <br className="hidden md:block" /> LinkedIn profile
             </h1>
 
             <p className="text-base sm:text-lg mb-6 text-[#333333] leading-relaxed px-2 md:px-0">
@@ -80,13 +68,12 @@ export default function LandingPages() {
 
             <div className="flex flex-col sm:flex-row sm:justify-center md:justify-start items-center gap-4">
               <button
-                className="text-black font-semibold py-3 px-6 rounded w-full sm:w-[300px]  font-semibold px-6 py-3 rounded-lg hover:shadow-lg transition"
+                className="text-black font-semibold py-3 px-6 rounded w-full sm:w-[300px] hover:shadow-lg transition"
                 style={{ backgroundColor: "#FF6F61" }}
               >
                 Get started for free
               </button>
 
-              {/* ✅ Updated Upload Resume Button */}
               <button
                 onClick={() => router.push("/login")}
                 className="text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-700 transition w-full sm:w-[180px]"
@@ -112,6 +99,7 @@ export default function LandingPages() {
             </div>
           </div>
         </section>
+
         <main>
           {landingSections.map((section, index) => {
             if (section.type === "jobFunnel") {
@@ -140,11 +128,12 @@ export default function LandingPages() {
           })}
         </main>
       </div>
+
       <div className="bg-[#c2b0de] py-16 px-4">
         <ResumeReviewPage />
       </div>
 
-      <Footer/>
+      <Footer />
     </>
   );
 }

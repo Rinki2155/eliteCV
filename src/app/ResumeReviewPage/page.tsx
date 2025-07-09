@@ -36,7 +36,7 @@ export default function ResumeTabsSection() {
               <p className="text-gray-200 text-md">
                 Score My Resume scores your resume on key criteria recruiters
                 and hiring managers look for. Upload your resume and in just 30
-                seconds, you'll get actionable steps to revamp your resume and
+                seconds, you&apos;ll get actionable steps to revamp your resume and
                 land more interviews.
               </p>
               <button className="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-md text-white text-lg">

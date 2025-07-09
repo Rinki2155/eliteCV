@@ -2,14 +2,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Footer from "../pages/components/Footer";
 import Header from "../pages/components/Header";
 
 export default function HomePage() {
   const { data: session, status } = useSession();
-  const pathname = usePathname();
   const router = useRouter();
   const [activeSection, setActiveSection] = useState("dashboard");
 
@@ -110,7 +109,7 @@ export default function HomePage() {
 
           <h3 className="text-sm font-bold mb-2 text-[purple]">Dashboard</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {menuItems.map((item, index) => {
+            {menuItems.map((item) => {
               const isActive = activeSection === item.key;
               return (
                 <button
@@ -150,7 +149,7 @@ export default function HomePage() {
                       🚀 UPGRADE TO PRO
                     </button>
                     <p className="text-yellow-800 text-xs mt-2 italic">
-                      * Limited Time Bonus: You'll also get access to our
+                      * Limited Time Bonus: You&apos;ll also get access to our
                       LinkedIn suite.
                     </p>
                   </div>
@@ -164,10 +163,10 @@ export default function HomePage() {
                     and LinkedIn journey. Follow the steps below.
                   </p>
 
-                  {progressSections.map((section, i) => (
+                  {progressSections.map((section) => (
                     <div
                       className="bg-white p-6 rounded-2xl shadow-lg mb-6 border border-gray-200 transition hover:shadow-xl"
-                      key={i}
+                      key={section.title}
                     >
                       <p className="text-md font-semibold text-purple-800 uppercase tracking-wide">
                         {section.title}

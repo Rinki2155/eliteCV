@@ -3,15 +3,14 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { AlertTriangle } from "lucide-react";
-import { Moon, Sun } from "lucide-react";
+import { AlertTriangle, Moon, Sun } from "lucide-react";
 import Header from "../pages/components/Header";
 
 export default function Score() {
   const { data: session, status } = useSession();
   const searchParams = useSearchParams();
-  const [theme, setTheme] = useState("light");
 
+  const [theme, setTheme] = useState("light");
   const [score, setScore] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [strengths, setStrengths] = useState<string[]>([]);
@@ -21,16 +20,19 @@ export default function Score() {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") setTheme("dark");
+    if (savedTheme === "dark") {
+      setTheme("dark");
+      document.documentElement.classList.add("dark");
+    }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("theme", theme);
+    document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    document.documentElement.classList.toggle("dark");
   };
 
   useEffect(() => {
@@ -43,15 +45,9 @@ export default function Score() {
 
       if (scoreParam) setScore(Number(scoreParam));
       if (feedbackParam) setFeedback(decodeURIComponent(feedbackParam));
-
-      if (strengthsParam)
-        setStrengths(JSON.parse(decodeURIComponent(strengthsParam)));
-
-      if (weaknessesParam)
-        setWeaknesses(JSON.parse(decodeURIComponent(weaknessesParam)));
-
-      if (suggestionsParam)
-        setSuggestions(JSON.parse(decodeURIComponent(suggestionsParam)));
+      if (strengthsParam) setStrengths(JSON.parse(decodeURIComponent(strengthsParam)));
+      if (weaknessesParam) setWeaknesses(JSON.parse(decodeURIComponent(weaknessesParam)));
+      if (suggestionsParam) setSuggestions(JSON.parse(decodeURIComponent(suggestionsParam)));
     } catch (error) {
       console.error("❌ Failed to parse feedback params:", error);
     }
@@ -69,14 +65,7 @@ export default function Score() {
 
   const circularProgress = (
     <svg width="80" height="80">
-      <circle
-        cx="40"
-        cy="40"
-        r="35"
-        stroke="#E5E7EB"
-        strokeWidth="8"
-        fill="none"
-      />
+      <circle cx="40" cy="40" r="35" stroke="#E5E7EB" strokeWidth="8" fill="none" />
       <circle
         cx="40"
         cy="40"
@@ -110,16 +99,7 @@ export default function Score() {
         className={`min-h-screen flex font-sans ${
           theme === "dark" ? "bg-black text-white" : "text-black"
         }`}
-        style={
-          theme === "light"
-            ? {
-                backgroundImage: "#AD46FF",
-              }
-            : {}
-        }
       >
-        {/* Toggle Button */}
-
         <button
           onClick={toggleTheme}
           className="fixed top-4 right-4 z-50 p-2 bg-gray-800 text-white rounded-full shadow hover:bg-gray-700"
@@ -148,9 +128,7 @@ export default function Score() {
                 </ul>
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-red-400 mb-1">
-                  WEAKNESSES
-                </h3>
+                <h3 className="text-sm font-semibold text-red-400 mb-1">WEAKNESSES</h3>
                 <ul className="text-sm space-y-1">
                   {weaknesses.map((item, i) => (
                     <li key={i} className="flex justify-between">

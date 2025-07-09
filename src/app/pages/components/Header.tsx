@@ -1,9 +1,9 @@
 "use client";
+import { useState, useEffect } from "react";
 
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "https://ai-cv-builder-be.fly.dev";
@@ -114,8 +114,7 @@ export default function Header() {
   if (!isLoading && !isLoggedIn) {
     navButtons.push({
       label: "Login",
-      onClick: () => router.push("/login"),
-      // onClick: handleLogin,
+      onClick: handleLogin, // ✅ USE handleLogin so it's not "unused"
       className: "hover:text-green-700",
     });
   }
