@@ -1,25 +1,16 @@
-// import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
-// const nextConfig: NextConfig = {
-//   images: {
-//     domains: [],
-//   },
-//   eslint: {
-//     ignoreDuringBuilds: true, 
-//   },
-// };
-
-// export default nextConfig;
-import type { Config } from "tailwindcss";
-
-const config: Config = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {},
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: false,
   },
-  plugins: [],
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  images: {
+    domains: ['developers.google.com'],
+  },
 };
 
-export default config;
+export default nextConfig;
